@@ -37,39 +37,60 @@ class BinarySearchTree {
     insertElem(this.treeRoot);
   }
 
-  has(value) {
+  has(data) {
     function searchElem(treeNode, val) {
       if (!treeNode) {
         return false;
       } else if (treeNode.data == val) {
         return true;
       } else if (val < treeNode.data) {
-        return searchElem(treeNode.left, value);
+        return searchElem(treeNode.left, data);
       } else {
-        return searchElem(treeNode.right, value);
+        return searchElem(treeNode.right, data);
       }
     }
-    return searchElem(this.treeRoot, value);
+    return searchElem(this.treeRoot, data);
   }
 
-  find(value) {
-    function findValue(treeNode, value) {
+  find(data) {
+    function findValue(treeNode, data) {
       if (!treeNode) {
         return null;
-      } else if (treeNode.data === value) {
+      } else if (treeNode.data === data) {
         return treeNode;
-      } else if (value < treeNode.data) {
-        return findValue(treeNode.left, value);
+      } else if (data < treeNode.data) {
+        return findValue(treeNode.left, data);
       } else {
-        return findValue(treeNode.right, value);
+        return findValue(treeNode.right, data);
       }
     }
-    return findValue(this.treeRoot, value);
+    return findValue(this.treeRoot, data);
   }
 
-  remove(/* data */) {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+  remove(data) {
+    function removeTreeNode(treeNode, data) {
+      if (!treeNode) return null;
+
+      if (data < treeNode.data) {
+        treeNode.left = removeTreeNode(treeNode.left, data);
+        return treeNode;
+      } else if (data > treeNode.data) {
+        treeNode.right = removeTreeNode(treeNode.right, data);
+        return treeNode;
+      } else if (data == treeNode.data) {
+        if (!treeNode.left && !treeNode.right) {
+          return null;
+        } else if (!treeNode.left) {
+          treeNode = treeNode.right;
+          return treeNode;
+        } else if (!treeNode.right) {
+          treeNode = treeNode.left;
+          return treeNode;
+        } else {
+        }
+      }
+    }
+    return removeTreeNode(this.treeRoot, data);
   }
 
   min() {
