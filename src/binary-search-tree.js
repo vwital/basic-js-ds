@@ -77,7 +77,7 @@ class BinarySearchTree {
       } else if (data > treeNode.data) {
         treeNode.right = removeTreeNode(treeNode.right, data);
         return treeNode;
-      } else if (data == treeNode.data) {
+      } else {
         if (!treeNode.left && !treeNode.right) {
           return null;
         } else if (!treeNode.left) {
@@ -87,6 +87,15 @@ class BinarySearchTree {
           treeNode = treeNode.left;
           return treeNode;
         } else {
+          let minElFromRight = treeNode.right;
+          while (minElFromRight.left) {
+            minElFromRight = minElFromRight.left;
+          }
+          console.log("mib", minElFromRight);
+          treeNode.data = minElFromRight.data;
+          treeNode.right = removeTreeNode(treeNode.right, minElFromRight.data);
+
+          return treeNode;
         }
       }
     }
@@ -113,15 +122,18 @@ class BinarySearchTree {
 }
 
 const tree = new BinarySearchTree();
-tree.add(2);
-tree.add(7);
-tree.add(1);
-tree.add(8);
-tree.add(4);
-tree.add(32);
-tree.add(12);
+tree.add(9);
 tree.add(14);
-console.log(tree.find(8));
+tree.add(54);
+tree.add(2);
+tree.add(6);
+tree.add(8);
+tree.add(31);
+tree.add(1);
+console.log("remove", tree.remove(9));
+tree.remove(2);
+console.log(tree);
+console.log(tree.has(9));
 
 module.exports = {
   BinarySearchTree,
